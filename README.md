@@ -18,7 +18,7 @@ tags: 永续合约, 合约云
 6. 上线后系统运维和数据统计
 
 ### 1.2 技术对接流程
-1. 商户在tigermex测试官网注册tigermex账户,作为商户在合约云下的母账户
+1. 商户在lpmex测试官网注册lpmex账户,作为商户在合约云下的母账户
     ( 测试： https://swap.lpmex.com/)    
 2. 商户提供以下信息：
     - 商户在mybts测试环境的官网注册的mybts用户信息：注册名、UID
@@ -36,7 +36,7 @@ tags: 永续合约, 合约云
 2. 商户在bitwind,作为商户在合约云下的母账户
 3. 商户账户在bitwind,作为商户保证金
 4. 商户向合约云提出正式上线申请，并提供信息包括：
-    - 商户在bitwind正式环境的官网注册的tigermex用户信息：注册名、UID
+    - 商户在bitwind正式环境的官网注册的lpmex用户信息：注册名、UID
     - 服务器间通信中，商户数据的签名公钥（正式）
     - 商户根据自身需要,提供接收合约云通知调用的URL(通知包括:爆仓、强平、计划委托和ADL)
 5. 合约云提供：
@@ -134,13 +134,13 @@ method=account.create&app_id=2017184040&nonce=24546&timestamp=1544897149&version
   
 ### 3.2 返回数据的签名验证
 
-1. 获得返回body(未反序列化)原始字符串,将其与返回的HTTP头的公共参数值按固定顺序(body+tigermex-Nonce+tigermex-Ts)构造待验签串 
+1. 获得返回body(未反序列化)原始字符串,将其与返回的HTTP头的公共参数值按固定顺序(body+EX-Nonce+EX-Ts)构造待验签串 
     
-    如：body={"errno": "OK","msg": "Success"}，tigermex-Ts=1542084086，tigermex-Nonce=123456。
+    如：body={"errno": "OK","msg": "Success"}，EX-Ts=1542084086，EX-Nonce=123456。
     
     构造结果为`{"errno": "OK","msg": "Success"}1542084086123456`
     
-2. 对构造字符串进行SHA256签名(PKCS1填充)，跟返回数据的HTTPS头中参数tigermex-Sign比对，以及tigermex公钥进行验签
+2. 对构造字符串进行SHA256签名(PKCS1填充)，跟返回数据的HTTPS头中参数EX-Sign比对，以及EX公钥进行验签
 
 
 ### 3.3 合约云平台的签名公钥
@@ -163,7 +163,7 @@ hdtfynOwVs297s1InwIDAQAB
 
 - 说明
 
-    接入方通过调用此接口创建一个子账号(将自己的用户映射到tigermex), 并且为子账号生成一个api_key
+    接入方通过调用此接口创建一个子账号(将自己的用户映射到lpmex), 并且为子账号生成一个api_key
 
 - 请求参数
 
@@ -923,12 +923,12 @@ expired_ts：由交易所服务器自己生成，表示token失效的时间戳�
 
 |Header Name    |Description|
 |---            |---        |
-|tigermex-Ver        |1.0|
-|tigermex-Dev        |WEB|
-|tigermex-Accesskey  |交易所服务端传给前端的api_key|
-|tigermex-ExpiredTs  |交易所服务端传给前端的expired_ts（单位：`微秒`）|
-|tigermex-Ts         |前端生成的当前时间的时间戳（单位：`微秒`）|
-|tigermex-Sign       |MD5(PostData+token+tigermex-Ts)，其中PostData为POST请求时的body数据，GET请求时为空；token为交易所服务端传给前端的token|
+|EX-Ver        |1.0|
+|EX-Dev        |WEB|
+|EX-Accesskey  |交易所服务端传给前端的api_key|
+|EX-ExpiredTs  |交易所服务端传给前端的expired_ts（单位：`微秒`）|
+|EX-Ts         |前端生成的当前时间的时间戳（单位：`微秒`）|
+|EX-Sign       |MD5(PostData+token+EX-Ts)，其中PostData为POST请求时的body数据，GET请求时为空；token为交易所服务端传给前端的token|
 
 
 
@@ -938,7 +938,7 @@ expired_ts：由交易所服务器自己生成，表示token失效的时间戳�
 
 - 币种信息
 
-    https://api.tigermex.com/v1/ifglobal/global
+    https://api.lpmex.com/v1/ifglobal/global
 
     币种精度数据在返回json数据中的data.spot_coins.vol_unit
 
