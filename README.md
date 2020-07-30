@@ -131,6 +131,30 @@ method=account.create&app_id=2017184040&nonce=24546&timestamp=1544897149&version
 2. 将排序好的参数,按照参数值拼接构造成字符串，格式为：value1+value2+… 。
 根据上面的示例得到的构造结果为：`b2d4a1c3` 。
 3. 对构造结果进行SHA256签名(PKCS1填充)，然后对签名结果做base64encode即得到signature
+```go
+//  golang 实现签名
+// MakeRequestSign Sign the request
+func MakeRequestSign(reqParams url.Values) (string, error) {
+	var (
+		keys []string
+	)
+	for key := range reqParams { // 将参数放入数组
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)    // 将数组按照ASCII码表升序顺序排序[一般来说语言的sort函数对字符串的默认排序规则就是这样的（go/python)]
+
+	buff := bytes.NewBuffer(nil)
+	for _, k := range keys {
+		buff.WriteString(reqParams.Get(k))
+	}
+	hashed := sha256.Sum256(buff.Bytes()) // Sum256 returns the SHA256 checksum of the data
+	encrypted, err := rsa.SignPKCS1v15(crand.Reader, privateKey, crypto.SHA256, hashed[:]) // PKCS#1   不同语言官方都有实现
+	if err != nil {
+		return "", err
+	}
+	return base64.StdEncoding.EncodeToString(encrypted), nil  // EncodeToString returns the base64 encoding of src.
+}
+```
   
 ### 3.2 返回数据的签名验证
 
