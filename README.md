@@ -385,6 +385,12 @@ hdtfynOwVs297s1InwIDAQAB
 
 ```
 // 根据公共返回参数判断成功/失败
+已知错误类型声明
+"INVALID_PARAMETER" 参数错误
+"INSUFFICIENT_BALANCE" 大账户总产不足
+"INVALID_COIN_CODE"  错误的操作币种
+"CONTRACT_USER_ASSET_NOT_ENOUGH"  用户资产不足
+"CONTRACT_USER_ASSET_SWITCH_NOT_TURNED_ON"  系统禁用此商户划转功能*
 ```
 
 
