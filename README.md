@@ -823,7 +823,60 @@ hdtfynOwVs297s1InwIDAQAB
   make_fee  // maker获得的手续费
   系统获得的手续费为 take_fee-make_fee, trade中只有taker是券商子账户，手续费才会参与分成
   ```
-  
+
+
+### 4.15 查询系统所有用户账户权益
+
+- 说明
+
+    批量拉取平台账户权益（接口频率限制 2s/次）
+
+- 请求参数
+
+    |参数名|类型|必填|说明|
+    |---|---|---|---|
+    |method|string|Y|app.asset.property|
+    |limit|int|N|默认100,最大1000|
+    |offset|int|N|默认0|
+
+- 返回数据
+
+```
+{
+    "errno":"OK",
+    "message":"Success",
+    "id":"6d65efd3-e475-425f-aa55-dd0a63179348",
+    "data":{
+        "total":67,
+        "limit":100,
+        "offset":0,
+        "Data":[
+            {
+                "uid":10000000,      // 合约额账户id
+                "origin_uid":"1",    // 商家uid
+                "assets":{
+                    "USDT":{                            
+                        "total_vol":"997.672222175",   //   总账户权益
+                        "available_vol":"997.672122175",   //   可用资产
+                        "freeze_vol":"0.0001",     //   冻结资产 
+                        "margin_vol":"0",         //    保证金资产
+                        "realize_vol":"0"         //    未实现收益
+                    }
+                }
+            },
+            {
+                "uid":10000001,
+                "origin_uid":"547921",
+                "assets":{                    // 部分未开通合约的用户没有详细的账户资产信息
+
+                }
+            }
+        ]
+    }
+}
+```
+
+
 
 ## 5. 合约云通知接口 
 
