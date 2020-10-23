@@ -19,7 +19,7 @@ tags: 永续合约, 合约云
 
 ### 1.2 技术对接流程
 1. 商户在lpmex测试官网注册lpmex账户,作为商户在合约云下的母账户
-    ( 测试： https://swap.lpmex.com/)    
+    ( 测试： https://swap.fxmex.me)    
 2. 商户提供以下信息：
     - 商户在lpmex测试环境的官网注册的lpmex用户信息：注册名、UID
     - 服务器间通信中，商户数据的签名公钥（测试用）
@@ -852,7 +852,7 @@ hdtfynOwVs297s1InwIDAQAB
         "offset":0,
         "Data":[
             {
-                "uid":10000000,      // 合约额账户id
+                "uid":10000000,      // 合约账户id
                 "origin_uid":"1",    // 商家uid
                 "assets":{
                     "USDT":{                            
