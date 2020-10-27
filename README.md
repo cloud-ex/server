@@ -861,6 +861,7 @@ hdtfynOwVs297s1InwIDAQAB
                         "freeze_vol":"0.0001",     //   冻结资产 
                         "margin_vol":"0",         //    保证金资产
                         "realize_vol":"0"         //    未实现收益
+                        "total_bonus":"0"         //   当日充值金额（对于模拟合约就是当日所领取的赠金）
                     }
                 }
             },
